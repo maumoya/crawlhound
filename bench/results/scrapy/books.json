@@ -1,7 +1,7 @@
 {
  "tool": "scrapy",
  "target": "books",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "title": "A Light in the Attic",
@@ -608,8 +608,8 @@
  "states": null,
  "forms": 105,
  "apis": null,
- "seconds": 9.8,
+ "seconds": 7.9,
  "requests": null,
  "status": "ok",
- "note": "scrapy 2.13.3, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s"
+ "note": "scrapy 2.20.0, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s"
 }

@@ -1,7 +1,7 @@
 {
  "tool": "crawl4ai",
  "target": "quotes-js",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "text": "“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”",
@@ -927,8 +927,8 @@
  "states": null,
  "forms": 0,
  "apis": null,
- "seconds": 32.7,
+ "seconds": 34.7,
  "requests": null,
  "status": "ok",
- "note": "crawl4ai 0.6.3, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
+ "note": "crawl4ai 0.9.5, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
 }

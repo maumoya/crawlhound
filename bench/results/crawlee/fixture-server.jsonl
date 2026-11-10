@@ -1,12 +1,12 @@
-{"method": "GET", "path": "/robots.txt", "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"}
-{"method": "GET", "path": "/", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/style.css", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/about.html", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/logo.svg", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/app.html", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/api/items.json", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/shop.html", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/api/products.json", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/feed.html", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/api/feed-1.json", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
-{"method": "GET", "path": "/logout", "ua": "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"}
+{"method": "GET", "path": "/robots.txt", "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0"}
+{"method": "GET", "path": "/", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/style.css", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/about.html", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/logo.svg", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/app.html", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/api/items.json", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/shop.html", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/api/products.json", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/feed.html", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/api/feed-1.json", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}
+{"method": "GET", "path": "/logout", "ua": "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"}

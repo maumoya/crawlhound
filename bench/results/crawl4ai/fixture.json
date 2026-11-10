@@ -1,7 +1,7 @@
 {
  "tool": "crawl4ai",
  "target": "fixture",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "name": "Widget A",
@@ -28,16 +28,16 @@
    "price": 0.99
   }
  ],
- "pages": 6,
+ "pages": 5,
  "states": null,
  "forms": 1,
  "apis": null,
- "seconds": 20.4,
+ "seconds": 24.8,
  "requests": null,
  "status": "ok",
- "note": "crawl4ai 0.6.3, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s",
+ "note": "crawl4ai 0.9.5, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s",
  "server": {
-  "requests": 13,
+  "requests": 12,
   "writes": 0,
   "robots_violations": 0,
   "write_paths": []

@@ -1,0 +1,4 @@
+# Known advisories in the benchmark-only competitor containers (bench/docker), never shipped with the skill.
+[[IgnoredVulns]]
+id = "PYSEC-2017-83"
+reason = "Scrapy advisory with no fixed version (affects every release from 0.7); Scrapy only runs inside the offline benchmark container."

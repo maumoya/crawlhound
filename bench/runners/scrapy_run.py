@@ -57,7 +57,7 @@ def main() -> None:
         rows = [json.loads(x) for x in out.read_text().splitlines() if x] if out.exists() else []
     pages = list({r["_page"]: r for r in rows if "_page" in r}.values())  # a page fetched twice counts once
     items = [r for r in rows if "_page" not in r]
-    note = "scrapy 2.13.3, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s"
+    note = "scrapy 2.20.0, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s"
     save("scrapy", name, {"items": items, "pages": len(pages), "forms": sum(r["_forms"] for r in pages),
                           "seconds": seconds, "status": "ok" if pages else "error",
                           "note": note if pages else note + "; " + proc.stderr[-300:]})

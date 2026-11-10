@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Benchmark re-run 2026-11-10 on current tools: Crawlee 3.18.2, Crawl4AI 0.9.5, Scrapy 2.20.0 (Twisted 26.10.0);
+  every image clears osv-scanner. crawlhound still reads every item with every field right on all 4 targets.
+
 ## 0.3.0 (2026-11-10)
 
 - **GitHub Action** (`action.yml`): crawl a site in CI and fail when pages, items or sitemap coverage fall short;
