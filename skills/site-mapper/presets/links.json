@@ -1,0 +1,14 @@
+{
+  "name": "links",
+  "item": "a[href]",
+  "description": "Every link: its text and absolute URL.",
+  "fields": {
+    "text": {},
+    "url": {
+      "attr": "href"
+    },
+    "rel": {
+      "attr": "rel"
+    }
+  }
+}

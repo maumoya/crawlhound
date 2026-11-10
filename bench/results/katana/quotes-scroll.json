@@ -1,0 +1,14 @@
+{
+ "tool": "katana",
+ "target": "quotes-scroll",
+ "date": "2026-11-09",
+ "items": null,
+ "pages": 1,
+ "states": null,
+ "forms": 0,
+ "apis": 1,
+ "seconds": 20.9,
+ "requests": 1,
+ "status": "ok",
+ "note": "headless hybrid crawl, -rl 1 -c 1; no field extraction (items n/a); does not apply robots.txt rules"
+}

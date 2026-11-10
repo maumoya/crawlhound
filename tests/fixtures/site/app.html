@@ -1,0 +1,39 @@
+<!doctype html><html><head><title>Fixture app</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<aside>
+  <button data-view="dashboard">Dashboard</button>
+  <button data-view="reports">Reports</button>
+  <button data-view="settings">Settings</button>
+  <button id="help">Open help</button>
+  <button id="delete">Delete account</button>
+</aside>
+<main>
+  <section id="dashboard"><h2>Dashboard</h2><ul id="items"></ul><button id="more">Load more</button><ul id="extra" hidden><li>gamma</li></ul></section>
+  <section id="reports" hidden><h2>Reports</h2>
+    <div role="tablist"><button role="tab" aria-selected="true" id="t-week">Weekly</button><button role="tab" aria-selected="false" id="t-month">Monthly</button></div>
+    <div id="p-week"><h3>Weekly numbers</h3></div><div id="p-month" hidden><h3>Monthly numbers</h3></div>
+  </section>
+  <section id="settings" hidden><h2>Settings</h2>
+    <form action="/api/profile" method="post"> <!-- static test fixture, never submitted; nosemgrep: python.django.security.django-no-csrf-token.django-no-csrf-token -->
+      <label>Name <input name="name" required></label>
+      <label>Email <input name="email" type="email"></label>
+      <button type="button">Save draft</button>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+</main>
+<div role="dialog" id="dlg" hidden><h2>Help</h2><p>How to use the app.</p><button id="close">Close</button></div>
+<script>
+const show = (v) => { for (const s of document.querySelectorAll('main section')) s.hidden = s.id !== v; history.pushState({}, '', '/app.html?view=' + v); };
+document.querySelectorAll('aside [data-view]').forEach((b) => b.addEventListener('click', () => show(b.dataset.view)));
+document.getElementById('help').onclick = () => { document.getElementById('dlg').hidden = false; };
+document.getElementById('close').onclick = () => { document.getElementById('dlg').hidden = true; };
+document.getElementById('delete').onclick = () => fetch('/api/account', {method: 'DELETE'});
+document.getElementById('more').onclick = () => { document.getElementById('extra').hidden = false; fetch('/api/track', {method: 'POST', body: 'x'}).catch(() => {}); };
+const tab = (on, off, pon, poff) => { on.setAttribute('aria-selected', 'true'); off.setAttribute('aria-selected', 'false'); pon.hidden = false; poff.hidden = true; };
+const tw = document.getElementById('t-week'), tm = document.getElementById('t-month');
+tw.onclick = () => tab(tw, tm, document.getElementById('p-week'), document.getElementById('p-month'));
+tm.onclick = () => tab(tm, tw, document.getElementById('p-month'), document.getElementById('p-week'));
+fetch('/api/items.json').then((r) => r.json()).then((d) => { document.getElementById('items').innerHTML = d.items.map((i) => '<li>' + i + '</li>').join(''); });
+</script>
+</body></html>

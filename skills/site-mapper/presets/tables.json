@@ -1,0 +1,5 @@
+{
+  "name": "tables",
+  "mode": "tables",
+  "description": "Every HTML <table>: caption, header row and cell rows."
+}

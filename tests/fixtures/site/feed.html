@@ -1,0 +1,14 @@
+<!doctype html><html><head><title>Fixture feed</title></head><body><h1>Feed</h1>
+<ol id="posts" style="font-size:40px"></ol>
+<script>
+let page = 0, more = true, busy = false;
+const load = () => {
+  if (!more || busy) return; busy = true; page += 1;
+  fetch('/api/feed-' + page + '.json').then((r) => r.json()).then((d) => {
+    for (const t of d.posts) { const li = document.createElement('li'); li.className = 'post'; li.textContent = t; li.style.height = '400px'; document.getElementById('posts').appendChild(li); }
+    more = d.more; busy = false;
+  });
+};
+window.addEventListener('scroll', () => { if (innerHeight + scrollY >= document.body.scrollHeight - 50) load(); });
+load();
+</script></body></html>

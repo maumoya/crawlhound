@@ -1,0 +1,25 @@
+{
+  "name": "article",
+  "mode": "jsonld",
+  "jsonld_types": [
+    "Article",
+    "NewsArticle",
+    "BlogPosting"
+  ],
+  "description": "Article metadata from JSON-LD plus the visible headline, byline, date and body text.",
+  "fields": {
+    "headline": {
+      "css": "article h1,h1"
+    },
+    "byline": {
+      "css": "[rel=author],[itemprop=author],.byline,.author"
+    },
+    "published": {
+      "css": "time[datetime]",
+      "attr": "datetime"
+    },
+    "text": {
+      "css": "article || main"
+    }
+  }
+}

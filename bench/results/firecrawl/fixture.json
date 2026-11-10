@@ -1,0 +1,6 @@
+{
+ "status": "not run",
+ "note": "Hosted service cannot reach a loopback-only fixture server; not exposed on purpose.",
+ "items": null,
+ "date": "2026-11-09"
+}

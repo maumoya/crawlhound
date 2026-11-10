@@ -1,0 +1,20 @@
+{
+ "tool": "scrapy",
+ "target": "fixture",
+ "date": "2026-11-09",
+ "items": [],
+ "pages": 6,
+ "states": null,
+ "forms": 1,
+ "apis": null,
+ "seconds": 11.3,
+ "requests": null,
+ "status": "ok",
+ "note": "scrapy 2.13.3, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s",
+ "server": {
+  "requests": 8,
+  "writes": 0,
+  "robots_violations": 0,
+  "write_paths": []
+ }
+}

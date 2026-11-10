@@ -1,0 +1,17 @@
+{
+  "skill": "site-mapper",
+  "queries": [
+    { "text": "/site-mapper https://quotes.toscrape.com/js/", "trigger": true },
+    { "text": "crawl this site and pull every product name and price into a file", "trigger": true },
+    { "text": "scrape the tables on every page of my docs site at localhost:3000", "trigger": true },
+    { "text": "map all the pages, routes and forms of my single page app", "trigger": true },
+    { "text": "spider example.com and extract the article headlines and dates as JSON", "trigger": true },
+    { "text": "what data can I get out of this website? crawl it read-only", "trigger": true },
+    { "text": "crawl teh js site and gimme the quotes + authors as jsonl", "trigger": true, "holdout": true },
+    { "text": "run a site map of my staging app and tell me what it covers", "trigger": true, "holdout": true },
+    { "text": "fill in and submit the signup form on this site for me", "trigger": false },
+    { "text": "summarize this one article: https://example.com/post", "trigger": false },
+    { "text": "load test my API with 500 requests per second", "trigger": false },
+    { "text": "write a Scrapy spider in Python for my project", "trigger": false, "holdout": true }
+  ]
+}

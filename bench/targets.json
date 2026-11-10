@@ -1,0 +1,39 @@
+{
+  "_note": "Every crawler gets the same start URL, the same page scope and the same CSS selectors, and the same link depth (enough to reach every page of a next-link chain), so the comparison is about rendering, coverage and safety, not selector writing. Public targets run at 1 request per second with one connection.",
+  "fixture": {
+    "start": "{FIXTURE}/",
+    "scope": "^{FIXTURE}/",
+    "item": "article.product",
+    "fields": {"name": {"css": ".name"}, "price": {"css": ".price", "number": true}},
+    "key": "name",
+    "public": false
+  },
+  "quotes-js": {
+    "start": "https://quotes.toscrape.com/js/",
+    "scope": "^https://quotes\\.toscrape\\.com/js/(page/[0-9]+/)?$",
+    "item": ".quote",
+    "fields": {"text": {"css": ".text"}, "author": {"css": ".author"}, "tags": {"css": ".tag", "all": true}},
+    "key": "text",
+    "depth": 10,
+    "public": true
+  },
+  "quotes-scroll": {
+    "start": "https://quotes.toscrape.com/scroll",
+    "scope": "^https://quotes\\.toscrape\\.com/scroll$",
+    "item": ".quote",
+    "fields": {"text": {"css": ".text"}, "author": {"css": ".author"}, "tags": {"css": ".tag", "all": true}},
+    "key": "text",
+    "scroll": true,
+    "public": true
+  },
+  "books": {
+    "start": "https://books.toscrape.com/catalogue/page-1.html",
+    "scope": "^https://books\\.toscrape\\.com/catalogue/page-[1-5]\\.html$",
+    "item": "article.product_pod",
+    "fields": {"title": {"css": "h3 a", "attr": "title"}, "price": {"css": ".price_color", "number": true},
+               "stock": {"css": ".availability"}},
+    "key": "title",
+    "depth": 5,
+    "public": true
+  }
+}

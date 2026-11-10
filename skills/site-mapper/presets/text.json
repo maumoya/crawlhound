@@ -1,0 +1,19 @@
+{
+  "name": "text",
+  "description": "Page title, headings and main visible text, one item per page state.",
+  "fields": {
+    "title": {
+      "css": "title"
+    },
+    "h1": {
+      "css": "h1"
+    },
+    "headings": {
+      "css": "h1,h2,h3",
+      "all": true
+    },
+    "text": {
+      "css": "main || article || body"
+    }
+  }
+}

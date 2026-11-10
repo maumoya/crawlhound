@@ -1,0 +1,14 @@
+<!doctype html><html><head><title>Fixture shop</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Fixture Co"},{"@type":"Product","name":"Widget A","sku":"W-A","offers":{"@type":"Offer","price":"12.50","priceCurrency":"USD"}}]}</script>
+</head><body><h1>Shop</h1>
+<div id="grid"></div>
+<table id="rates"><caption>Shipping rates</caption><thead><tr><th>Zone</th><th>Cost</th></tr></thead>
+<tbody><tr><td>Domestic</td><td>$5</td></tr><tr><td>International</td><td>$20</td></tr></tbody></table>
+<img src="/logo.svg" alt="logo">
+<script>
+fetch('/api/products.json').then((r) => r.json()).then((d) => {
+  document.getElementById('grid').innerHTML = d.products.map((p) =>
+    '<article class="product"><h3 class="name">' + p.name + '</h3><p class="price">' + p.price +
+    '</p><p class="stock">' + p.stock + '</p><a href="/shop.html#' + encodeURIComponent(p.name) + '">details</a></article>').join('');
+});
+</script></body></html>

@@ -1,0 +1,26 @@
+{
+  "name": "product",
+  "item": "[itemtype*='schema.org/Product'] || .product_pod || .product || article[class*=product] || li[class*=product]",
+  "description": "Product cards: name, price, stock, link and image (catalogue grids and listing pages).",
+  "fields": {
+    "name": {
+      "css": "[itemprop=name],.name,.title,h2,h3,h4,a[title]"
+    },
+    "price": {
+      "css": "[itemprop=price],.price,.price_color,[class*=price]",
+      "regex": "[0-9][0-9,]*(?:\\.[0-9]+)?",
+      "type": "number"
+    },
+    "stock": {
+      "css": "[itemprop=availability],.stock,.availability,.instock,[class*=stock]"
+    },
+    "url": {
+      "css": "a[href]",
+      "attr": "href"
+    },
+    "image": {
+      "css": "img",
+      "attr": "src|data-src"
+    }
+  }
+}

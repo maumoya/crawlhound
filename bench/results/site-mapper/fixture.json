@@ -1,0 +1,46 @@
+{
+ "tool": "site-mapper",
+ "target": "fixture",
+ "date": "2026-11-09",
+ "items": [
+  {
+   "name": "Widget A",
+   "price": 12.5
+  },
+  {
+   "name": "Widget B",
+   "price": 7.0
+  },
+  {
+   "name": "Widget C",
+   "price": 1250.99
+  },
+  {
+   "name": "Widget D",
+   "price": 3.1
+  },
+  {
+   "name": "Widget E",
+   "price": 45.0
+  },
+  {
+   "name": "Widget F",
+   "price": 0.99
+  }
+ ],
+ "pages": 6,
+ "states": 13,
+ "forms": 1,
+ "apis": 4,
+ "seconds": 44.4,
+ "requests": null,
+ "status": "ok",
+ "note": "spider.py --extract, 1 req/s",
+ "blocked": 1,
+ "server": {
+  "requests": 13,
+  "writes": 0,
+  "robots_violations": 0,
+  "write_paths": []
+ }
+}

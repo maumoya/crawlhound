@@ -1,0 +1,14 @@
+{
+ "tool": "scrapy",
+ "target": "quotes-js",
+ "date": "2026-11-09",
+ "items": [],
+ "pages": 11,
+ "states": null,
+ "forms": 0,
+ "apis": null,
+ "seconds": 14.2,
+ "requests": null,
+ "status": "ok",
+ "note": "scrapy 2.13.3, no JavaScript rendering, ROBOTSTXT_OBEY, 1 req/s"
+}

@@ -1,0 +1,15 @@
+# Site Mapper
+
+> Read-only web spider skill for Claude Code (v0.1.0). Crawls the data you choose (a JSON schema written from a plain-English ask, or a preset: text, tables, links, prices, product, article) from static and JavaScript sites, and maps pages, SPA states, routes, forms and GET APIs. robots.txt and 1 request per second; every non-GET/HEAD request is blocked in the browser.
+
+## Install
+
+- Claude Code: `/plugin marketplace add maumoya/site-mapper-skill` then `/plugin install site-mapper@site-mapper`
+- Any agent: `npx skills add maumoya/site-mapper-skill`
+
+## Files
+
+- [SKILL.md](https://github.com/maumoya/site-mapper-skill/blob/main/skills/site-mapper/SKILL.md): the skill
+- [schema.md](https://github.com/maumoya/site-mapper-skill/blob/main/skills/site-mapper/references/schema.md): the extraction schema format
+- [README.md](https://github.com/maumoya/site-mapper-skill/blob/main/README.md): what it does, install, benchmark results
+- [bench/](https://github.com/maumoya/site-mapper-skill/tree/main/bench): reproducible benchmark against Crawlee, Crawl4AI, Scrapy, Katana and Firecrawl

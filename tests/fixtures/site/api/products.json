@@ -1,0 +1,34 @@
+{
+ "products": [
+  {
+   "name": "Widget A",
+   "price": "$12.50",
+   "stock": "In stock"
+  },
+  {
+   "name": "Widget B",
+   "price": "$7.00",
+   "stock": "Out of stock"
+  },
+  {
+   "name": "Widget C",
+   "price": "$1,250.99",
+   "stock": "In stock"
+  },
+  {
+   "name": "Widget D",
+   "price": "$3.10",
+   "stock": "In stock"
+  },
+  {
+   "name": "Widget E",
+   "price": "$45.00",
+   "stock": "Out of stock"
+  },
+  {
+   "name": "Widget F",
+   "price": "$0.99",
+   "stock": "In stock"
+  }
+ ]
+}

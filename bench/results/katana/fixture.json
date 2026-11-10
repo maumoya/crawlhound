@@ -1,0 +1,20 @@
+{
+ "tool": "katana",
+ "target": "fixture",
+ "date": "2026-11-09",
+ "items": null,
+ "pages": 8,
+ "states": null,
+ "forms": 1,
+ "apis": 1,
+ "seconds": 50.9,
+ "requests": 9,
+ "status": "ok",
+ "note": "headless hybrid crawl, -rl 1 -c 1; no field extraction (items n/a); does not apply robots.txt rules",
+ "server": {
+  "requests": 13,
+  "writes": 0,
+  "robots_violations": 1,
+  "write_paths": []
+ }
+}
