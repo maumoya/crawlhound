@@ -7,7 +7,7 @@ is exposed to the LAN. Clean-room: tools were run, never copied.
 
 | Tool | Version | License | Image / install | Status |
 |---|---|---|---|---|
-| crawlhound (this repo) | 0.3.0 | MIT | host Python + Playwright | run |
+| crawlhound (this repo) | 0.3.1 | MIT | host Python + Playwright | run |
 | Crawlee | crawlee 3.18.2 + playwright 1.64.1 (linkedom pinned 0.16.11: newer releases pull ESM-only deps that break `require`; minimatch overridden to 11.0.1 for its advisories) | Apache-2.0 | `mcr.microsoft.com/playwright:v1.64.1-noble@sha256:2f05f8a734509a7b3f26a912639488ee08f58a7b292d14d62271bcff9038768f` | run |
 | Crawl4AI | 0.9.5 + playwright 1.64.1 | Apache-2.0 | `mcr.microsoft.com/playwright/python:v1.64.1-noble@sha256:330d401ae23c905896a0c26c66c36fc971b621519e7b11b435a8328d7bf6e031` | run |
 | Scrapy | 2.20.0 + Twisted 26.10.0 (PYSEC-2017-83 has no fixed release; ignored in `bench/docker/scrapy/osv-scanner.toml` because Scrapy only runs offline in the bench container) | BSD-3-Clause | `python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b` | run |

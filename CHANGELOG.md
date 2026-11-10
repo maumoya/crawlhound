@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.3.1 (2026-11-10)
+
+- Sole authorship: every commit on main is authored by the owner; the Dependabot actions bump is kept, re-authored.
+- README CI example reads the URL from `env` (no dead loopback link).
 
 - Benchmark re-run 2026-11-10 on current tools: Crawlee 3.18.2, Crawl4AI 0.9.5, Scrapy 2.20.0 (Twisted 26.10.0);
   every image clears osv-scanner. crawlhound still reads every item with every field right on all 4 targets.
