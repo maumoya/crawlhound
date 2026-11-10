@@ -1,0 +1,12 @@
+{
+  "name": "crawlhound-bench-crawlee",
+  "private": true,
+  "description": "Pinned Crawlee for the crawlhound benchmark container (installed with npm ci).",
+  "dependencies": {
+    "crawlee": "3.13.3",
+    "playwright": "1.48.2"
+  },
+  "overrides": {
+    "linkedom": "0.16.11"
+  }
+}
