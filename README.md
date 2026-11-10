@@ -1,20 +1,20 @@
 <!-- Regenerate the row with badges.sh: it adds Scorecard, Best Practices and measured benefit badges when they exist. -->
-<p align="center"><img src="assets/header.png" alt="Site Mapper: crawl any data, write nothing. Read-only spider for Claude Code." width="100%"></p>
+<p align="center"><img src="assets/header.png" alt="Crawlhound: crawl any data, write nothing. Read-only spider for Claude Code." width="100%"></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Claude%20Code-skill%20%2B%20plugin-7c5cfc" alt="Claude Code skill and plugin">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
   <a href="https://opensource.org/license/mit"><img src="https://img.shields.io/badge/Open%20Source-OSI%20approved%20license-3DA639?logo=opensourceinitiative&logoColor=white" alt="Open Source: OSI-approved MIT license"></a>
   <img src="https://img.shields.io/badge/privacy-no%20tracking%20%C2%B7%20no%20data%20collected-7c5cfc" alt="Privacy: no tracking, no data collected">
-  <a href="https://scorecard.dev/viewer/?uri=github.com/maumoya/site-mapper-skill"><img src="https://api.scorecard.dev/projects/github.com/maumoya/site-mapper-skill/badge" alt="OpenSSF Scorecard"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/maumoya/crawlhound"><img src="https://api.scorecard.dev/projects/github.com/maumoya/crawlhound/badge" alt="OpenSSF Scorecard"></a>
   <a href="https://www.bestpractices.dev/projects/16516"><img src="https://www.bestpractices.dev/projects/16516/badge" alt="OpenSSF Best Practices"></a>
 </p>
 
 <p align="center"><a href="#results-measured-2026-11-09"><img src="assets/result-card.svg" width="720" alt="100% of items with 100% field accuracy on 4 of 4 targets; 0% of writes reached the site (measured 2026-11-09)"></a></p>
 
-<p align="center"><img src="assets/demo.gif" width="720" alt="Demo: site-mapper crawls a loopback shop, lists a form without sending it, blocks a POST and writes 6 items."></p>
+<p align="center"><img src="assets/demo.gif" width="720" alt="Demo: crawlhound crawls a loopback shop, lists a form without sending it, blocks a POST and writes 6 items."></p>
 
-# Site Mapper
+# Crawlhound
 
 **Tell Claude what data you want from a site. You get it as JSON lines, plus a map of every page, SPA state, form and
 API, and no write ever reaches the site.**
@@ -28,21 +28,21 @@ including JavaScript pages, infinite scroll and SPA states that only a click rea
 Claude Code plugin:
 
 ```
-/plugin marketplace add maumoya/site-mapper-skill
-/plugin install site-mapper@site-mapper
+/plugin marketplace add maumoya/crawlhound
+/plugin install crawlhound@crawlhound
 ```
 
 Any agent that reads skills:
 
 ```
-npx skills add maumoya/site-mapper-skill
+npx skills add maumoya/crawlhound
 ```
 
 Needs Python 3.9+ and an installed Chrome or Chromium. No pip packages.
 
 ## Use
 
-Type `/site-mapper` or just ask:
+Type `/crawlhound` or just ask:
 
 - "Crawl quotes.toscrape.com/js and get every quote, author and tags."
 - "Extract the products and prices from my shop at localhost:3000."
@@ -51,7 +51,7 @@ Type `/site-mapper` or just ask:
 Or run the script yourself:
 
 ```
-python3 skills/site-mapper/scripts/spider.py https://quotes.toscrape.com/js/ \
+python3 skills/crawlhound/scripts/spider.py https://quotes.toscrape.com/js/ \
   --extract schema.json --include '/js/(page/[0-9]+/)?$' --terms-ok
 ```
 
@@ -65,7 +65,7 @@ routes, forms, GET APIs, blocked writes, coverage verdict).
 | Preset | `--extract text` · `tables` · `links` · `prices` · `product` · `article` | the ask fits a common shape |
 | Schema file | `--extract schema.json` (check it with `--check-schema`) | anything else: item selector and named fields, `attr`, `all`, `regex`, `type: number`, `match` |
 
-A schema is a few lines ([format](skills/site-mapper/references/schema.md)):
+A schema is a few lines ([format](skills/crawlhound/references/schema.md)):
 
 ```json
 {"name": "quotes", "item": ".quote",
@@ -90,7 +90,7 @@ sandboxes built for scraping practice (quotes.toscrape.com `/js/` and `/scroll`,
 
 | Tool | Items found (recall), 4 targets | Field accuracy | SPA states mapped | Writes reaching the fixture | robots.txt violations | Time, quotes-js |
 |---|---|---|---|---|---|---|
-| **site-mapper** | **100% · 100% · 100% · 100%** | 100% | **yes (13 on the fixture)** | **0** | **0** | 1135 s |
+| **crawlhound** | **100% · 100% · 100% · 100%** | 100% | **yes (13 on the fixture)** | **0** | **0** | 1135 s |
 | Crawlee 3.13 | 100% · 100% · 100% · 100% | 100% | no | 0 | 0 | 19 s |
 | Crawl4AI 0.6.3 | 100% · 100% · 100% · 20% | 100% | no | 0 | 0 | 33 s |
 | Scrapy 2.13 | 0% · 0% · 0% · 100% (no JavaScript) | 100% where found | no | 0 | 0 | 14 s |
@@ -99,8 +99,8 @@ sandboxes built for scraping practice (quotes.toscrape.com `/js/` and `/scroll`,
 
 What this shows, honestly:
 
-- **Accuracy:** site-mapper and Crawlee both found every item with every field right on all 4 targets.
-- **Where site-mapper is different:** it is the only tool that maps SPA states (clicks that change the page without a
+- **Accuracy:** crawlhound and Crawlee both found every item with every field right on all 4 targets.
+- **Where crawlhound is different:** it is the only tool that maps SPA states (clicks that change the page without a
   link) and lists the write requests it blocked. Writes and robots.txt are measured on the fixture only, where the
   server logs every request.
 - **Where it loses:** speed. It clicks every button and tab and waits 1 second between requests, so the 10-page
@@ -140,7 +140,7 @@ No. It is instructions and local scripts; the only network traffic is the crawl 
 
 ## About the author
 
-Hi, I'm **Mauricio Alonso Moya Tapia** ([@maumoya](https://github.com/maumoya)). I built site-mapper for VISION,
+Hi, I'm **Mauricio Alonso Moya Tapia** ([@maumoya](https://github.com/maumoya)). I built crawlhound for VISION,
 my own agent framework, to see every page, state and API of a web app and pull its data without changing anything.
 
 Say hi or follow my work on [GitHub](https://github.com/maumoya).

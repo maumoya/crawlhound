@@ -11,8 +11,8 @@
   <rect width="1280" height="640" fill="url(#glow)"/>
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
     <rect x="80" y="92" width="72" height="72" rx="18" fill="url(#badge)"/>
-    <text x="116" y="141" font-size="30" font-weight="800" fill="#FFFFFF" text-anchor="middle">SM</text>
-    <text x="172" y="143" font-size="40" font-weight="700" fill="#FFFFFF"><tspan fill="#C9B8FF" font-weight="500">maumoya/</tspan>site-mapper-skill</text>
+    <text x="116" y="141" font-size="30" font-weight="800" fill="#FFFFFF" text-anchor="middle">CH</text>
+    <text x="172" y="143" font-size="40" font-weight="700" fill="#FFFFFF"><tspan fill="#C9B8FF" font-weight="500">maumoya/</tspan>crawlhound</text>
     <text x="80" y="262" font-size="66" font-weight="800" fill="#FFFFFF">Crawl any data.</text>
     <text x="80" y="340" font-size="66" font-weight="800" fill="#C9B8FF">Write nothing.</text>
     <text x="80" y="404" font-size="26" fill="#D8D2F5">Read-only spider for Claude Code: JS pages,</text>

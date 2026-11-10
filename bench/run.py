@@ -1,6 +1,6 @@
 """Run one tool on one target: starts the logging fixture server for the fixture target, then the runner.
 
-usage: run.py TOOL TARGET     (TOOL = site-mapper | scrapy | katana | crawlee | crawl4ai)
+usage: run.py TOOL TARGET     (TOOL = crawlhound | scrapy | katana | crawlee | crawl4ai)
 Docker tools reach the host fixture through host.lima.internal (colima) / host.docker.internal."""
 import json
 import os
@@ -13,7 +13,7 @@ import fixture_server  # noqa: E402
 from common import BENCH, RESULTS  # noqa: E402
 
 DOCKER_HOST_NAME = os.environ.get("BENCH_HOST_NAME", "host.lima.internal")
-RUNNERS = {"site-mapper": "ours.py", "scrapy": "scrapy_run.py", "katana": "katana_run.py",
+RUNNERS = {"crawlhound": "ours.py", "scrapy": "scrapy_run.py", "katana": "katana_run.py",
            "crawlee": "crawlee_run.py", "crawl4ai": "crawl4ai_run.py"}
 
 
@@ -23,7 +23,7 @@ def main() -> None:
     if name == "fixture":
         log = RESULTS / tool / "fixture-server.jsonl"
         bind = "127.0.0.1"
-        public = "127.0.0.1" if tool == "site-mapper" else DOCKER_HOST_NAME
+        public = "127.0.0.1" if tool == "crawlhound" else DOCKER_HOST_NAME
         server, origin = fixture_server.start(log, host=bind, public_host=public)
     try:
         subprocess.run([sys.executable, str(BENCH / "runners" / RUNNERS[tool]), name, origin], check=False)

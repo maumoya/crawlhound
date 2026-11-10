@@ -1,6 +1,6 @@
 {
  "fixture": {
-  "site-mapper": {
+  "crawlhound": {
    "status": "ok",
    "pages": 6,
    "states": 13,
@@ -92,7 +92,7 @@
   }
  },
  "quotes-js": {
-  "site-mapper": {
+  "crawlhound": {
    "status": "ok",
    "pages": 11,
    "states": 11,
@@ -184,7 +184,7 @@
   }
  },
  "quotes-scroll": {
-  "site-mapper": {
+  "crawlhound": {
    "status": "ok",
    "pages": 1,
    "states": 3,
@@ -276,7 +276,7 @@
   }
  },
  "books": {
-  "site-mapper": {
+  "crawlhound": {
    "status": "ok",
    "pages": 5,
    "states": 5,

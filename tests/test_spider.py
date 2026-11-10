@@ -1,4 +1,4 @@
-"""site-mapper spider: policy units, schema extraction, WebSocket framing, and an end-to-end crawl of a localhost fixture.
+"""crawlhound spider: policy units, schema extraction, WebSocket framing, and an end-to-end crawl of a localhost fixture.
 
 The end-to-end test needs an installed Chrome; it is skipped when none is found."""
 import hashlib
@@ -12,7 +12,7 @@ from pathlib import Path
 
 import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "skills" / "site-mapper" / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "skills" / "crawlhound" / "scripts"))
 import cdp  # noqa: E402
 import extract  # noqa: E402
 import spider as sm  # noqa: E402
@@ -103,7 +103,7 @@ class RobotsRfc9309(unittest.TestCase):
 
     def test_own_group_wins_and_crawl_delay(self):
         text = ("User-agent: *\nDisallow: /\nCrawl-delay: 2\n\n"
-                "User-agent: site-mapper\nDisallow: /admin\nCrawl-delay: 5\nSitemap: http://h/s.xml\n")
+                "User-agent: crawlhound\nDisallow: /admin\nCrawl-delay: 5\nSitemap: http://h/s.xml\n")
         r = sm.Robots(text)
         self.assertTrue(r.allowed("http://h/page"))
         self.assertFalse(r.allowed("http://h/admin/x"))

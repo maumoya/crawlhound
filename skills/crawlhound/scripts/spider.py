@@ -1,4 +1,4 @@
-"""site-mapper spider: crawl a site read-only, map its SPA states and pull the data you choose.
+"""crawlhound spider: crawl a site read-only, map its SPA states and pull the data you choose.
 
 Data: `--extract SCHEMA` (a preset name or a JSON schema file, see extract.py) pulls items from every page state
 into items.jsonl. Map: what it records: the page tree, SPA states reached by clicking (tabs, modals, sidebar buttons without links),
@@ -38,8 +38,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cdp as _cdp  # noqa: E402
 import extract as _extract  # noqa: E402
 
-USER_AGENT = "site-mapper/0.1 (+https://github.com/maumoya/site-mapper-skill; read-only; robots.txt honoured)"
-ROBOTS_TOKEN = "site-mapper"
+USER_AGENT = "crawlhound/0.2 (+https://github.com/maumoya/crawlhound; read-only; robots.txt honoured)"
+ROBOTS_TOKEN = "crawlhound"
 # Never mapped, never probed, never fetched, whatever the flags say. Private hosts are kept as SHA-256 hashes of
 # the registrable host name so the public code enforces the rule without naming them.
 DENIED_HOST_HASHES = ("d2760e1ab724201bbb12e8ded28bb601e3ceb139d3d82113f367ca6f6772b62d",)
@@ -225,7 +225,7 @@ def check_target(url: str, terms_ok: bool) -> str:
 GUARD_JS = r"""
 (() => {
   const log = (kind, detail) => { try { (window.__vsm = window.__vsm || []).push([kind, String(detail)]); } catch (e) {} };
-  const Blocked = function (url) { log('websocket', url); throw new Error('site mapper: WebSocket blocked'); };
+  const Blocked = function (url) { log('websocket', url); throw new Error('crawlhound: WebSocket blocked'); };
   try { window.WebSocket = Blocked; } catch (e) {}
   try { navigator.sendBeacon = (url) => { log('beacon', url); return false; }; } catch (e) {}
   try { window.open = (url) => { log('window.open', url); return null; }; } catch (e) {}

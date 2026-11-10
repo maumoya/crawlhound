@@ -1,7 +1,7 @@
 {
-  "skill": "site-mapper",
+  "skill": "crawlhound",
   "queries": [
-    { "text": "/site-mapper https://quotes.toscrape.com/js/", "trigger": true },
+    { "text": "/crawlhound https://quotes.toscrape.com/js/", "trigger": true },
     { "text": "crawl this site and pull every product name and price into a file", "trigger": true },
     { "text": "scrape the tables on every page of my docs site at localhost:3000", "trigger": true },
     { "text": "map all the pages, routes and forms of my single page app", "trigger": true },

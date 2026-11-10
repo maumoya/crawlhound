@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: schema-from-english
 expected_outcome: |
-  The agent writes a site-mapper JSON schema for files/books.html that pulls each book's full title (from the
+  The agent writes a crawlhound JSON schema for files/books.html that pulls each book's full title (from the
   link's title attribute), price as a number and stock text, one item per article.product_pod, and validates it
   with spider.py --check-schema, which prints OK.
