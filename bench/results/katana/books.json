@@ -1,13 +1,13 @@
 {
  "tool": "katana",
  "target": "books",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": null,
  "pages": 5,
  "states": null,
  "forms": 10,
  "apis": 0,
- "seconds": 36.6,
+ "seconds": 32.2,
  "requests": 6,
  "status": "ok",
  "note": "headless hybrid crawl, -rl 1 -c 1; no field extraction (items n/a); does not apply robots.txt rules"

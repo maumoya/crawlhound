@@ -1,7 +1,7 @@
 {
  "tool": "crawl4ai",
  "target": "quotes-scroll",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "text": "“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”",
@@ -669,176 +669,14 @@
     "classic",
     "reading"
    ]
-  },
-  {
-   "text": "“Anyone who has never made a mistake has never tried anything new.”",
-   "author": "Albert Einstein",
-   "tags": [
-    "mistakes"
-   ]
-  },
-  {
-   "text": "“A lady's imagination is very rapid; it jumps from admiration to love, from love to matrimony in a moment.”",
-   "author": "Jane Austen",
-   "tags": [
-    "humor",
-    "love",
-    "romantic",
-    "women"
-   ]
-  },
-  {
-   "text": "“Remember, if the time should come when you have to make a choice between what is right and what is easy, remember what happened to a boy who was good, and kind, and brave, because he strayed across the path of Lord Voldemort. Remember Cedric Diggory.”",
-   "author": "J.K. Rowling",
-   "tags": [
-    "integrity"
-   ]
-  },
-  {
-   "text": "“I declare after all there is no enjoyment like reading! How much sooner one tires of any thing than of a book! -- When I have a house of my own, I shall be miserable if I have not an excellent library.”",
-   "author": "Jane Austen",
-   "tags": [
-    "books",
-    "library",
-    "reading"
-   ]
-  },
-  {
-   "text": "“There are few people whom I really love, and still fewer of whom I think well. The more I see of the world, the more am I dissatisfied with it; and every day confirms my belief of the inconsistency of all human characters, and of the little dependence that can be placed on the appearance of merit or sense.”",
-   "author": "Jane Austen",
-   "tags": [
-    "elizabeth-bennet",
-    "jane-austen"
-   ]
-  },
-  {
-   "text": "“Some day you will be old enough to start reading fairy tales again.”",
-   "author": "C.S. Lewis",
-   "tags": [
-    "age",
-    "fairytales",
-    "growing-up"
-   ]
-  },
-  {
-   "text": "“We are not necessarily doubting that God will do the best for us; we are wondering how painful the best will turn out to be.”",
-   "author": "C.S. Lewis",
-   "tags": [
-    "god"
-   ]
-  },
-  {
-   "text": "“The fear of death follows from the fear of life. A man who lives fully is prepared to die at any time.”",
-   "author": "Mark Twain",
-   "tags": [
-    "death",
-    "life"
-   ]
-  },
-  {
-   "text": "“A lie can travel half way around the world while the truth is putting on its shoes.”",
-   "author": "Mark Twain",
-   "tags": [
-    "misattributed-mark-twain",
-    "truth"
-   ]
-  },
-  {
-   "text": "“I believe in Christianity as I believe that the sun has risen: not only because I see it, but because by it I see everything else.”",
-   "author": "C.S. Lewis",
-   "tags": [
-    "christianity",
-    "faith",
-    "religion",
-    "sun"
-   ]
-  },
-  {
-   "text": "“The truth.\" Dumbledore sighed. \"It is a beautiful and terrible thing, and should therefore be treated with great caution.”",
-   "author": "J.K. Rowling",
-   "tags": [
-    "truth"
-   ]
-  },
-  {
-   "text": "“I'm the one that's got to die when it's time for me to die, so let me live my life the way I want to.”",
-   "author": "Jimi Hendrix",
-   "tags": [
-    "death",
-    "life"
-   ]
-  },
-  {
-   "text": "“To die will be an awfully big adventure.”",
-   "author": "J.M. Barrie",
-   "tags": [
-    "adventure",
-    "love"
-   ]
-  },
-  {
-   "text": "“It takes courage to grow up and become who you really are.”",
-   "author": "E.E. Cummings",
-   "tags": [
-    "courage"
-   ]
-  },
-  {
-   "text": "“But better to get hurt by the truth than comforted with a lie.”",
-   "author": "Khaled Hosseini",
-   "tags": [
-    "life"
-   ]
-  },
-  {
-   "text": "“You never really understand a person until you consider things from his point of view... Until you climb inside of his skin and walk around in it.”",
-   "author": "Harper Lee",
-   "tags": [
-    "better-life-empathy"
-   ]
-  },
-  {
-   "text": "“You have to write the book that wants to be written. And if the book will be too difficult for grown-ups, then you write it for children.”",
-   "author": "Madeleine L'Engle",
-   "tags": [
-    "books",
-    "children",
-    "difficult",
-    "grown-ups",
-    "write",
-    "writers",
-    "writing"
-   ]
-  },
-  {
-   "text": "“Never tell the truth to people who are not worthy of it.”",
-   "author": "Mark Twain",
-   "tags": [
-    "truth"
-   ]
-  },
-  {
-   "text": "“A person's a person, no matter how small.”",
-   "author": "Dr. Seuss",
-   "tags": [
-    "inspirational"
-   ]
-  },
-  {
-   "text": "“... a mind needs books as a sword needs a whetstone, if it is to keep its edge.”",
-   "author": "George R.R. Martin",
-   "tags": [
-    "books",
-    "mind"
-   ]
   }
  ],
  "pages": 1,
  "states": null,
  "forms": 0,
  "apis": null,
- "seconds": 10.1,
+ "seconds": 8.1,
  "requests": null,
  "status": "ok",
- "note": "crawl4ai 0.6.3, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
+ "note": "crawl4ai 0.9.5, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
 }

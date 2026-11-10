@@ -1,7 +1,7 @@
 {
  "tool": "crawlee",
  "target": "quotes-scroll",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "text": "“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”",
@@ -836,9 +836,9 @@
  "pages": 1,
  "states": null,
  "forms": 0,
- "apis": 11,
- "seconds": 13.5,
+ "apis": 12,
+ "seconds": 11.4,
  "requests": null,
  "status": "ok",
- "note": "crawlee 3.13.3 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min"
+ "note": "crawlee 3.18.2 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min"
 }
