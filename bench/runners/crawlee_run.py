@@ -69,7 +69,7 @@ def main() -> None:
         seconds = round(time.time() - began, 1)
         out_file = work / "out.json"
         out = json.loads(out_file.read_text()) if out_file.exists() else None
-    note = "crawlee 3.13.3 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min"
+    note = "crawlee 3.18.2 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min"
     if not out:
         save("crawlee", name, {"status": "error", "seconds": seconds, "items": [], "note": note + "; " + proc.stderr[-400:]})
         return

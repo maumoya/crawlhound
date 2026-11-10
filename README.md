@@ -103,24 +103,26 @@ There is no contacts preset, on purpose: the skill refuses to harvest emails, ph
 Same 4 targets for every tool, scored against hand-made ground truth by `bench/score.py`:
 a loopback fixture (JavaScript products, infinite scroll, SPA tabs, a form and a tracking POST) and three public
 sandboxes built for scraping practice (quotes.toscrape.com `/js/` and `/scroll`, books.toscrape.com, first 5 pages).
+The open-source tools were re-run on 2026-11-10 with their current versions; the Firecrawl row is from 2026-11-09.
 
 | Tool | Items found (recall), 4 targets | Field accuracy | SPA states mapped | Writes reaching the fixture | robots.txt violations | Time, quotes-js |
 |---|---|---|---|---|---|---|
-| **crawlhound** | **100% · 100% · 100% · 100%** | 100% | **yes (13 on the fixture)** | **0** | **0** | 1135 s |
-| Crawlee 3.13 | 100% · 100% · 100% · 100% | 100% | no | 0 | 0 | 19 s |
-| Crawl4AI 0.6.3 | 100% · 100% · 100% · 20% | 100% | no | 0 | 0 | 33 s |
-| Scrapy 2.13 | 0% · 0% · 0% · 100% (no JavaScript) | 100% where found | no | 0 | 0 | 14 s |
-| Katana 1.1.3 | mapping only, no extraction | n/a | no | 0 | **1** | 42 s |
+| **crawlhound** | **100% · 100% · 100% · 100%** | 100% | **yes (13 on the fixture)** | **0** | **0** | 1134 s |
+| Crawlee 3.18 | 100% · 100% · 100% · 100% | 100% | no | 0 | 0 | 16 s |
+| Crawl4AI 0.9.5 | 100% · 100% · 80% · 100% | 100% | no | 0 | 0 | 35 s |
+| Scrapy 2.20 | 0% · 0% · 0% · 100% (no JavaScript) | 100% where found | no | 0 | 0 | 15 s |
+| Katana 1.1.3 | mapping only, no extraction | n/a | no | 0 | **1** | 43 s |
 | Firecrawl (hosted) | not run · 40% · 10% · 100% | 62–100% | no | not run (cannot reach loopback) | — | 34 s |
 
 What this shows, honestly:
 
-- **Accuracy:** crawlhound and Crawlee both found every item with every field right on all 4 targets.
+- **Accuracy:** crawlhound and Crawlee both found every item with every field right on all 4 targets;
+  Crawl4AI missed 20% of the infinite-scroll quotes.
 - **Where crawlhound is different:** it is the only tool that maps SPA states (clicks that change the page without a
   link) and lists the write requests it blocked. Writes and robots.txt are measured on the fixture only, where the
   server logs every request.
 - **Where it loses:** speed. It clicks every button and tab and waits 1 second between requests, so the 10-page
-  quotes-js crawl took 19 minutes against Crawlee's 19 seconds. Use `--no-click` when links reach every page.
+  quotes-js crawl took 19 minutes against Crawlee's 16 seconds. Use `--no-click` when links reach every page.
 - Firecrawl ran with depth 3 (two deeper runs timed out), so its quotes numbers understate it.
 
 Full table (pages, forms, GET APIs, timings per target): [bench/results/RESULTS.md](bench/results/RESULTS.md).

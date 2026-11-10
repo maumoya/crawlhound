@@ -3,10 +3,11 @@
   "private": true,
   "description": "Pinned Crawlee for the crawlhound benchmark container (installed with npm ci).",
   "dependencies": {
-    "crawlee": "3.13.3",
-    "playwright": "1.48.2"
+    "crawlee": "3.18.2",
+    "playwright": "1.64.1"
   },
   "overrides": {
-    "linkedom": "0.16.11"
+    "linkedom": "0.16.11",
+    "minimatch": "11.0.1"
   }
 }

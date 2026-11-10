@@ -1,7 +1,7 @@
 {
  "tool": "crawlhound",
  "target": "books",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "title": "A Light in the Attic",
@@ -508,7 +508,7 @@
  "states": 5,
  "forms": 105,
  "apis": 0,
- "seconds": 54.8,
+ "seconds": 54.3,
  "requests": null,
  "status": "ok",
  "note": "spider.py --extract, 1 req/s",

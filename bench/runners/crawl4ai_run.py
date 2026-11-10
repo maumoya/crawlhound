@@ -82,7 +82,7 @@ def main() -> None:
         seconds = round(time.time() - began, 1)
         out_file = work / "out.json"
         out = json.loads(out_file.read_text()) if out_file.exists() else None
-    note = "crawl4ai 0.6.3, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
+    note = "crawl4ai 0.9.5, JsonCssExtractionStrategy, check_robots_txt, runner-driven BFS at 1 req/s"
     if not out:
         save("crawl4ai", name, {"status": "error", "seconds": seconds, "items": [], "note": note + "; " + proc.stderr[-400:]})
         return

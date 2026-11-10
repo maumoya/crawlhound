@@ -1,7 +1,7 @@
 {
  "tool": "crawlee",
  "target": "fixture",
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "items": [
   {
    "name": "Widget A",
@@ -32,10 +32,10 @@
  "states": null,
  "forms": 1,
  "apis": 3,
- "seconds": 12.2,
+ "seconds": 32.9,
  "requests": null,
  "status": "ok",
- "note": "crawlee 3.13.3 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min",
+ "note": "crawlee 3.18.2 PlaywrightCrawler, respectRobotsTxtFile, concurrency 1, 60 req/min",
  "server": {
   "requests": 12,
   "writes": 0,
