@@ -1,0 +1,77 @@
+name: "crawlhound site check"
+description: "Crawl your site read-only in CI (GET only, POSTs blocked) and fail when pages or extracted items fall short."
+author: "Mauricio Alonso Moya Tapia"
+branding:
+  icon: "search"
+  color: "green"
+
+inputs:
+  url:
+    description: "Start URL. Usually your preview or a local server started earlier in the job (http://127.0.0.1:8000/)."
+    required: true
+  extract:
+    description: "Optional preset name (product, prices, article, tables, links, text) or a JSON schema file path."
+    required: false
+    default: ""
+  min-pages:
+    description: "Fail when fewer pages than this are reached."
+    required: false
+    default: "1"
+  min-items:
+    description: "Fail when fewer items than this are extracted (needs extract)."
+    required: false
+    default: "0"
+  max-pages:
+    description: "Page cap for the crawl."
+    required: false
+    default: "50"
+  sitemap-complete:
+    description: "Set to true to fail when a sitemap URL was never reached."
+    required: false
+    default: "false"
+  terms-ok:
+    description: "Set to true only when you own the site or its terms allow crawling (needed off loopback)."
+    required: false
+    default: "false"
+  out:
+    description: "Folder for map.json, map.md and items.jsonl."
+    required: false
+    default: "crawlhound-report"
+
+outputs:
+  pages:
+    description: "Pages reached."
+    value: ${{ steps.check.outputs.pages }}
+  items:
+    description: "Items extracted."
+    value: ${{ steps.check.outputs.items }}
+  report:
+    description: "Path of the Markdown report."
+    value: ${{ steps.check.outputs.report }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Crawl read-only
+      shell: bash
+      env:
+        CH_URL: ${{ inputs.url }}
+        CH_EXTRACT: ${{ inputs.extract }}
+        CH_MAX_PAGES: ${{ inputs.max-pages }}
+        CH_TERMS_OK: ${{ inputs.terms-ok }}
+        CH_OUT: ${{ inputs.out }}
+        CH_SCRIPTS: ${{ github.action_path }}/skills/crawlhound/scripts
+      run: |
+        args=("$CH_URL" --out "$CH_OUT" --max-pages "$CH_MAX_PAGES")
+        [ -n "$CH_EXTRACT" ] && args+=(--extract "$CH_EXTRACT")
+        [ "$CH_TERMS_OK" = "true" ] && args+=(--terms-ok)
+        python3 "$CH_SCRIPTS/spider.py" "${args[@]}"
+    - name: Check the result
+      id: check
+      shell: bash
+      env:
+        CH_OUT: ${{ inputs.out }}
+        CH_MIN_PAGES: ${{ inputs.min-pages }}
+        CH_MIN_ITEMS: ${{ inputs.min-items }}
+        CH_SITEMAP: ${{ inputs.sitemap-complete }}
+      run: python3 "${{ github.action_path }}/scripts/action_check.py"

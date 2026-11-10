@@ -1,0 +1,104 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>crawlhound demo scene</title>
+<style>
+html,body{margin:0;background:#0b1020;overflow:hidden}
+svg{display:block;width:1200px;height:760px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style></head>
+<body>
+<!-- Self-contained, no network. Recorded with make_demo.sh into assets/demo.gif. -->
+<svg id="s" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#101a33"/></linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <g id="grid" stroke="#1c2747" stroke-width="1"></g>
+  <text x="40" y="58" fill="#e2e8f0" font-size="30" font-weight="700">crawlhound</text>
+  <text x="40" y="88" fill="#94a3b8" font-size="17">walks the web, reads only, brings the data home</text>
+  <g id="web"></g>
+  <g id="sites"></g>
+  <g id="packets"></g>
+  <circle cx="420" cy="420" r="120" fill="url(#glow)"/>
+  <g id="spider"></g>
+  <!-- data table -->
+  <g transform="translate(800,150)">
+    <rect width="360" height="440" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+    <text x="20" y="38" fill="#e2e8f0" font-size="18" font-weight="700">items.jsonl</text>
+    <text x="20" y="72" fill="#64748b" font-size="14">title</text><text x="250" y="72" fill="#64748b" font-size="14">price</text>
+    <line x1="20" y1="84" x2="340" y2="84" stroke="#1e293b"/>
+    <g id="rows"></g>
+  </g>
+  <g id="result" opacity="0">
+    <rect x="800" y="610" width="360" height="64" rx="14" fill="#14532d" stroke="#22c55e" stroke-width="2"/>
+    <text x="980" y="650" text-anchor="middle" fill="#bbf7d0" font-size="22" font-weight="700">✓ 6 items · 0 POSTs sent</text>
+  </g>
+  <text id="cmd" x="40" y="720" fill="#22d3ee" font-size="18">$ vision crawl https://shop.example --preset products</text>
+</svg>
+<script>
+const NS='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+for(let x=0;x<=1200;x+=40)el('line',{x1:x,y1:110,x2:x,y2:760,opacity:.35},$('grid'));
+for(let y=120;y<=760;y+=40)el('line',{x1:0,y1:y,x2:1200,y2:y,opacity:.35},$('grid'));
+const hub={x:420,y:420};
+const sites=[
+ {x:170,y:200,n:'/books',k:'page'},{x:420,y:170,n:'/music',k:'page'},{x:660,y:220,n:'/travel',k:'page'},
+ {x:690,y:560,n:'/checkout',k:'form'},{x:420,y:660,n:'/poetry',k:'page'},{x:150,y:560,n:'/science',k:'page'},{x:110,y:390,n:'/history',k:'page'}];
+const items=[['A Light in the Attic','£51.77'],['Tipping the Velvet','£53.74'],['Soumission','£50.10'],['Sharp Objects','£47.82'],['Sapiens','£54.23'],['The Requiem Red','£22.65']];
+// web: radial strands + rings
+sites.forEach(s=>el('line',{x1:hub.x,y1:hub.y,x2:s.x,y2:s.y,stroke:'#334155','stroke-width':1.5},$('web')));
+[60,120,180].forEach(r=>{let d='';sites.forEach((s,i)=>{const a=Math.atan2(s.y-hub.y,s.x-hub.x);d+=(i?'L':'M')+(hub.x+r*Math.cos(a))+','+(hub.y+r*Math.sin(a))});el('path',{d:d+'Z',fill:'none',stroke:'#1e3a5f','stroke-width':1},$('web'))});
+const strands=sites.map(s=>el('line',{x1:hub.x,y1:hub.y,x2:hub.x,y2:hub.y,stroke:'#22d3ee','stroke-width':2.5,opacity:.9},$('web')));
+const cards=sites.map(s=>{const g=el('g',{transform:`translate(${s.x-62},${s.y-38})`},$('sites'));
+ const r=el('rect',{width:124,height:76,rx:10,fill:'#111c33',stroke:'#334155','stroke-width':2},g);
+ el('rect',{width:124,height:18,rx:10,fill:'#1e293b'},g);[10,22,34].forEach((x,i)=>el('circle',{cx:x,cy:9,r:3.5,fill:['#f87171','#fbbf24','#34d399'][i]},g));
+ el('text',{x:62,y:46,'text-anchor':'middle',fill:'#cbd5e1','font-size':14},g).textContent=s.n;
+ const tag=el('text',{x:62,y:66,'text-anchor':'middle',fill:'#64748b','font-size':11},g);tag.textContent=s.k==='form'?'form':'page';
+ return {g,r,tag}});
+// spider
+const sp=$('spider');const body=el('g',{},sp);const legs=[];
+for(let i=0;i<8;i++)legs.push(el('path',{fill:'none',stroke:'#e2e8f0','stroke-width':3,'stroke-linecap':'round'},body));
+el('ellipse',{cx:0,cy:6,rx:15,ry:18,fill:'#0f172a',stroke:'#e2e8f0','stroke-width':3},body);
+el('circle',{cx:0,cy:-14,r:10,fill:'#0f172a',stroke:'#e2e8f0','stroke-width':3},body);
+el('circle',{cx:-4,cy:-16,r:2.6,fill:'#22d3ee'},body);el('circle',{cx:4,cy:-16,r:2.6,fill:'#22d3ee'},body);
+const T=8000,seg=T*0.7/sites.length;
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+let rowsShown=0,packets=[];
+function addRow(i){const y=112+i*44;const g=el('g',{opacity:0},$('rows'));
+ el('text',{x:20,y,fill:'#e2e8f0','font-size':15},g).textContent=items[i][0];
+ el('text',{x:250,y,fill:'#4ade80','font-size':15,'font-weight':700},g).textContent=items[i][1];
+ g.dataset.t0=performance.now();return g}
+const rowEls=[];
+function frame(now){
+ const t=(now-start)%T,loop=Math.floor((now-start)/T);
+ if(loop!==lastLoop){lastLoop=loop;rowEls.splice(0).forEach(r=>r.remove());rowsShown=0;$('result').setAttribute('opacity',0);
+  cards.forEach((c,j)=>{c.r.setAttribute('stroke','#334155');c.r.setAttribute('fill','#111c33');c.tag.textContent=sites[j].k==='form'?'form':'page';c.tag.setAttribute('fill','#64748b')});strands.forEach(s=>{s.setAttribute('x2',hub.x);s.setAttribute('y2',hub.y)})}
+ let x=hub.x,y=hub.y,ang=-Math.PI/2,walking=0;
+ const i=Math.min(sites.length-1,Math.floor(t/seg)),u=(t-i*seg)/seg;
+ if(t<seg*sites.length){const s=sites[i];ang=Math.atan2(s.y-hub.y,s.x-hub.x)+Math.PI/2;
+  const out=u<.45?ease(u/.45):u<.55?1:1-ease((u-.55)/.45);walking=u<.45||u>.55;
+  x=hub.x+(s.x-hub.x)*out*.78;y=hub.y+(s.y-hub.y)*out*.78;
+  if(u<.45){strands[i].setAttribute('x2',x);strands[i].setAttribute('y2',y)}else{strands[i].setAttribute('x2',hub.x+(s.x-hub.x)*.78);strands[i].setAttribute('y2',hub.y+(s.y-hub.y)*.78)}
+  if(u>=.45){const c=cards[i];
+   if(s.k==='form'){c.r.setAttribute('stroke','#f59e0b');c.r.setAttribute('fill','#2a1d0b');c.tag.textContent='POST blocked';c.tag.setAttribute('fill','#fbbf24')}
+   else{c.r.setAttribute('stroke','#22c55e');c.r.setAttribute('fill','#0f2a1d');c.tag.textContent='read · 200';c.tag.setAttribute('fill','#4ade80')}}
+  if(u>=.5&&s.k!=='form'&&!packets.some(p=>p.i===i&&p.loop===loop)&&rowsShown+packets.filter(p=>p.loop===loop).length<items.length)
+   packets.push({i,loop,t0:now,from:{x:s.x,y:s.y},row:rowsShown+packets.filter(p=>p.loop===loop).length,e:el('g',{},$('packets'))});
+ } else {const v=(t-seg*sites.length)/(T-seg*sites.length);$('result').setAttribute('opacity',Math.min(1,v*3))}
+ // packets fly to table
+ packets=packets.filter(p=>{const k=Math.min(1,(now-p.t0)/700);const tx=820,ty=262+p.row*44-150+150-6;
+  const px=p.from.x+(tx-p.from.x)*ease(k),py=p.from.y+(ty-p.from.y)*ease(k)-Math.sin(k*Math.PI)*60;
+  p.e.innerHTML='';el('rect',{x:px-34,y:py-12,width:68,height:24,rx:12,fill:'#22c55e'},p.e);
+  const tt=el('text',{x:px,y:py+5,'text-anchor':'middle',fill:'#052e16','font-size':12,'font-weight':700},p.e);tt.textContent=items[p.row]?items[p.row][1]:'';
+  if(k>=1){p.e.remove();if(p.loop===lastLoop&&p.row<items.length){const r=addRow(p.row);r.setAttribute('opacity',1);rowEls.push(r);rowsShown++}return false}return true});
+ // legs
+ legs.forEach((l,k)=>{const side=k<4?-1:1,j=k%4,base=(-50+j*33)*Math.PI/180,w=walking?Math.sin(now/70+k*1.7)*.25:0;
+  const a=base+w,ex=side*Math.cos(a)*34,ey=Math.sin(a)*30+4,kx=side*Math.cos(a)*20,ky=Math.sin(a)*14-12;
+  l.setAttribute('d',`M0,4 Q${kx},${ky} ${ex},${ey}`)});
+ sp.setAttribute('transform',`translate(${x},${y}) rotate(${ang*180/Math.PI})`);
+ }
+let start=0,lastLoop=-1,timer=setInterval(()=>frame(performance.now()),33);start=performance.now();
+// Recorder hook: make_demo.sh steps the scene frame by frame through demoSeek(ms).
+window.demoSeek=ms=>{if(timer){clearInterval(timer);timer=0;start=0;lastLoop=-1;packets.forEach(p=>p.e.remove());packets=[]}frame(ms)};
+</script>
+</body></html>

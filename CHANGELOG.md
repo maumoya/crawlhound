@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-11-10)
+
+- **GitHub Action** (`action.yml`): crawl a site in CI and fail when pages, items or sitemap coverage fall short;
+  outputs `pages` and `items`, writes the map to the job summary. Self-tested in CI (one pass, one asserted failure).
+- New demo: an illustrated spider walks the site web, blocks the checkout POST and carries 6 items home.
+- Fuzzing: Atheris target for the robots.txt, WebSocket frame, URL and schema parsers, run 60 s on every PR.
+- Benchmark images pin every pip and npm dependency by hash (`requirements.txt`, `package-lock.json`).
+
 ## 0.2.0 (2026-11-10)
 
 - Renamed from site-mapper to **crawlhound**: it crawls data, not just maps. Repo is now maumoya/crawlhound

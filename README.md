@@ -12,7 +12,7 @@
 
 <p align="center"><a href="#results-measured-2026-11-09"><img src="assets/result-card.svg" width="720" alt="100% of items with 100% field accuracy on 4 of 4 targets; 0% of writes reached the site (measured 2026-11-09)"></a></p>
 
-<p align="center"><img src="assets/demo.gif" width="720" alt="Demo: crawlhound crawls a loopback shop, lists a form without sending it, blocks a POST and writes 6 items."></p>
+<p align="center"><img src="assets/demo.gif" width="720" alt="Animation: a spider walks a web of site pages, reads each one, blocks the checkout POST and carries 6 items into items.jsonl."></p>
 
 # Crawlhound
 
@@ -57,6 +57,22 @@ python3 skills/crawlhound/scripts/spider.py https://quotes.toscrape.com/js/ \
 
 Output goes to `./site-maps/<host>-<time>/`: `items.jsonl` (your data), `map.json` and `map.md` (pages, SPA states,
 routes, forms, GET APIs, blocked writes, coverage verdict).
+
+### In CI (GitHub Action)
+
+Crawl your preview or a local server in a workflow and fail the job when pages or items fall short:
+
+```yaml
+- uses: maumoya/crawlhound@v0.3.0
+  with:
+    url: http://127.0.0.1:8000/   # a server you started earlier in the job
+    extract: product              # optional preset or schema file
+    min-pages: 5
+    min-items: 1
+```
+
+Outputs `pages` and `items`; the full map goes to the job summary. Off loopback, set `terms-ok: true` only for a site
+you own or whose terms allow crawling.
 
 ### Say what to collect
 
@@ -116,6 +132,8 @@ Reproduce with `bench/run.sh --build` (needs Docker and Playwright).
 - `tests/test_spider.py` (25 tests): robots.txt matching, the write guard, the deny-list, schema checks, presets,
   and full crawls of a loopback fixture (JavaScript products, infinite scroll, SPA states).
 - `evals/`: one case per promise. Run `claude plugin eval . --allow-tools`.
+- `tests/fuzz/fuzz_parsers.py`: Atheris fuzzing of the robots.txt, WebSocket frame, URL and schema parsers (60 s per PR).
+- `.github/workflows/action-selftest.yml`: the GitHub Action runs on the fixture site, once to pass and once to fail.
 - `bench/`: the head-to-head benchmark above. Every PR runs `scripts/lint_skill.sh` in CI.
 
 ## FAQ

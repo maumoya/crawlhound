@@ -1,11 +1,12 @@
 # Crawlhound
 
-> Read-only web spider skill for Claude Code (v0.2.0). Crawls the data you choose (a JSON schema written from a plain-English ask, or a preset: text, tables, links, prices, product, article) from static and JavaScript sites, and maps pages, SPA states, routes, forms and GET APIs. robots.txt and 1 request per second; every non-GET/HEAD request is blocked in the browser.
+> Read-only web spider skill for Claude Code (v0.3.0). Crawls the data you choose (a JSON schema written from a plain-English ask, or a preset: text, tables, links, prices, product, article) from static and JavaScript sites, and maps pages, SPA states, routes, forms and GET APIs. robots.txt and 1 request per second; every non-GET/HEAD request is blocked in the browser.
 
 ## Install
 
 - Claude Code: `/plugin marketplace add maumoya/crawlhound` then `/plugin install crawlhound@crawlhound`
 - Any agent: `npx skills add maumoya/crawlhound`
+- GitHub Action: `uses: maumoya/crawlhound@v0.3.0` with `url`, optional `extract`, `min-pages`, `min-items`
 
 ## Files
 

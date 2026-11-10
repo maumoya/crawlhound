@@ -38,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cdp as _cdp  # noqa: E402
 import extract as _extract  # noqa: E402
 
-USER_AGENT = "crawlhound/0.2 (+https://github.com/maumoya/crawlhound; read-only; robots.txt honoured)"
+USER_AGENT = "crawlhound/0.3 (+https://github.com/maumoya/crawlhound; read-only; robots.txt honoured)"
 ROBOTS_TOKEN = "crawlhound"
 # Never mapped, never probed, never fetched, whatever the flags say. Private hosts are kept as SHA-256 hashes of
 # the registrable host name so the public code enforces the rule without naming them.

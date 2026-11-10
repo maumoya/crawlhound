@@ -1,6 +1,6 @@
 {
   "name": "crawlhound",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Read-only web spider for Claude Code: crawl the data you choose (schema file or presets) from static and JavaScript sites, map SPA states, honour robots.txt at 1 request per second, and block every write in the browser.",
   "author": {
     "name": "Mauricio Alonso Moya Tapia",
