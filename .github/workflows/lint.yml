@@ -21,3 +21,15 @@ jobs:
 
       - name: Lint
         run: bash scripts/lint_skill.sh .
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Unit and end-to-end tests (Chrome is preinstalled on the runner)
+        run: python3 -m unittest discover -s tests -v
