@@ -7,6 +7,7 @@
   <a href="https://opensource.org/license/mit"><img src="https://img.shields.io/badge/Open%20Source-OSI%20approved%20license-3DA639?logo=opensourceinitiative&logoColor=white" alt="Open Source: OSI-approved MIT license"></a>
   <img src="https://img.shields.io/badge/privacy-no%20tracking%20%C2%B7%20no%20data%20collected-7c5cfc" alt="Privacy: no tracking, no data collected">
   <a href="https://scorecard.dev/viewer/?uri=github.com/maumoya/site-mapper-skill"><img src="https://api.scorecard.dev/projects/github.com/maumoya/site-mapper-skill/badge" alt="OpenSSF Scorecard"></a>
+  <a href="https://www.bestpractices.dev/projects/16516"><img src="https://www.bestpractices.dev/projects/16516/badge" alt="OpenSSF Best Practices"></a>
 </p>
 
 <p align="center"><a href="#results-measured-2026-11-09"><img src="assets/result-card.svg" width="720" alt="100% of items with 100% field accuracy on 4 of 4 targets; 0% of writes reached the site (measured 2026-11-09)"></a></p>
