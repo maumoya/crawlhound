@@ -65,7 +65,7 @@ Crawl your preview or a local server in a workflow and fail the job when pages o
 ```yaml
 - uses: maumoya/crawlhound@v0.3.0
   with:
-    url: http://127.0.0.1:8000/   # a server you started earlier in the job
+    url: ${{ env.PREVIEW_URL }}   # your preview, or a server started earlier in the job
     extract: product              # optional preset or schema file
     min-pages: 5
     min-items: 1
