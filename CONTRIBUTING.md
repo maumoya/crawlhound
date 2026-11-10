@@ -10,3 +10,5 @@
 4. Open a PR. CI must be green. Mauricio Alonso Moya Tapia (@maumoya) reviews and merges.
 
 Keep SKILL.md under 500 lines; put detail in `references/`. Plain words. Commits name only their human authors.
+
+Dependency bumps (Dependabot) are re-authored by the maintainer before they land on main.
