@@ -6,7 +6,7 @@ from pathlib import Path
 BENCH = Path(__file__).resolve().parent
 TARGETS = json.loads((BENCH / "targets.json").read_text())
 RESULTS = BENCH / "results"
-UA = "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"
+UA = "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"
 
 
 def target(name: str, fixture_origin: str = "") -> dict:

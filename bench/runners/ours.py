@@ -1,4 +1,4 @@
-"""Run site-mapper's spider.py on one benchmark target; usage: ours.py TARGET [FIXTURE_ORIGIN]."""
+"""Run crawlhound's spider.py on one benchmark target; usage: ours.py TARGET [FIXTURE_ORIGIN]."""
 import json
 import subprocess
 import sys
@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from common import BENCH, save, target  # noqa: E402
 
-SPIDER = BENCH.parent / "skills" / "site-mapper" / "scripts" / "spider.py"
+SPIDER = BENCH.parent / "skills" / "crawlhound" / "scripts" / "spider.py"
 
 
 def schema_for(t: dict) -> dict:
@@ -44,13 +44,13 @@ def main() -> None:
         seconds = round(time.time() - began, 1)
         out = Path(tmp) / "out"
         if proc.returncode != 0 or not (out / "map.json").exists():
-            save("site-mapper", name, {"status": "error", "note": proc.stderr[-500:], "seconds": seconds})
+            save("crawlhound", name, {"status": "error", "note": proc.stderr[-500:], "seconds": seconds})
             return
         rep = json.loads((out / "map.json").read_text())
         items = [json.loads(line) for line in (out / "items.jsonl").read_text().splitlines() if line]
         items = [{k: v for k, v in i.items() if not k.startswith("_")} for i in items]
         cov = rep["coverage"]
-        save("site-mapper", name, {
+        save("crawlhound", name, {
             "items": items, "pages": cov["pages"], "states": cov["states"], "forms": len(rep.get("forms", [])),
             "apis": len(rep.get("api", {})), "seconds": seconds,
             "blocked": len(rep.get("blocked_requests", [])), "note": "spider.py --extract, 1 req/s"})

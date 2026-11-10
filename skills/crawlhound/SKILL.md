@@ -1,10 +1,10 @@
 ---
-name: site-mapper
-description: Read-only web spider for Claude Code. Crawls the data the user chooses (a JSON schema written from their plain-English ask, or a preset - text, tables, links, prices, product, article) from static and JavaScript sites, and maps pages, SPA states, routes, forms and GET APIs. Honours robots.txt at 1 request per second and blocks every write in the browser. Use when the user says "/site-mapper", "crawl this site", "spider this site", "scrape every page for X", "extract the products/prices/tables from this site", "map my app's pages and routes", or asks what data or pages a website has. Not for submitting forms, logging in, load testing, or a single page summary.
+name: crawlhound
+description: Read-only web spider for Claude Code. Crawls the data the user chooses (a JSON schema written from their plain-English ask, or a preset - text, tables, links, prices, product, article) from static and JavaScript sites, and maps pages, SPA states, routes, forms and GET APIs. Honours robots.txt at 1 request per second and blocks every write in the browser. Use when the user says "/crawlhound", "crawl this site", "spider this site", "scrape every page for X", "extract the products/prices/tables from this site", "map my app's pages and routes", or asks what data or pages a website has. Not for submitting forms, logging in, load testing, or a single page summary.
 license: MIT
 ---
 
-# Site Mapper
+# Crawlhound
 
 A read-only spider. It drives headless Chrome over the DevTools protocol, crawls one origin, and returns
 `items.jsonl` (the data the user asked for) plus `map.json` / `map.md` (pages, SPA states, routes, forms, GET APIs,

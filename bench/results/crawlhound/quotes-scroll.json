@@ -1,6 +1,6 @@
 {
- "tool": "site-mapper",
- "target": "quotes-js",
+ "tool": "crawlhound",
+ "target": "quotes-scroll",
  "date": "2026-11-09",
  "items": [
   {
@@ -833,13 +833,13 @@
    ]
   }
  ],
- "pages": 11,
- "states": 11,
+ "pages": 1,
+ "states": 3,
  "forms": 0,
- "apis": 0,
- "seconds": 1134.6,
+ "apis": 10,
+ "seconds": 434.8,
  "requests": null,
  "status": "ok",
  "note": "spider.py --extract, 1 req/s",
- "blocked": 273
+ "blocked": 81
 }

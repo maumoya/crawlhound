@@ -1,4 +1,4 @@
-"""site-mapper: a minimal Chrome DevTools Protocol client on the standard library only.
+"""crawlhound: a minimal Chrome DevTools Protocol client on the standard library only.
 
 The spider needs no pip installs, so this file carries its own small WebSocket
 client (RFC 6455, client side: masked frames out, fragmented frames in, ping answered) and a launcher for the
@@ -184,7 +184,7 @@ class Browser:
     on_event(method, params) is called for every event while a command is awaited or pump() runs."""
 
     def __init__(self, chrome: str, on_event, timeout: float = 15.0):
-        self.profile = tempfile.mkdtemp(prefix="site-mapper-")
+        self.profile = tempfile.mkdtemp(prefix="crawlhound-")
         args = [chrome, "--headless=new", "--remote-debugging-port=0", f"--user-data-dir={self.profile}",
                 "--no-first-run", "--no-default-browser-check", "--disable-extensions", "--disable-sync",
                 "--disable-background-networking", "--disable-component-update", "--disable-default-apps",

@@ -1,13 +1,13 @@
 {
   "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
-  "name": "site-mapper",
+  "name": "crawlhound",
   "description": "Read-only web spider for Claude Code: crawl the data you choose (schema file or presets) from static and JavaScript sites, map SPA states, honour robots.txt at 1 request per second, and block every write in the browser.",
   "owner": {
     "name": "Mauricio Alonso Moya Tapia"
   },
   "plugins": [
     {
-      "name": "site-mapper",
+      "name": "crawlhound",
       "description": "Read-only web spider for Claude Code: crawl the data you choose (schema file or presets) from static and JavaScript sites, map SPA states, honour robots.txt at 1 request per second, and block every write in the browser.",
       "source": "./",
       "category": "productivity",

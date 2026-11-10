@@ -12,7 +12,7 @@ import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-UA = "site-mapper-bench/0.1 (+https://github.com/maumoya/site-mapper-skill)"
+UA = "crawlhound-bench/0.2 (+https://github.com/maumoya/crawlhound)"
 
 
 def get(url: str) -> str:

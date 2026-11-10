@@ -14,7 +14,7 @@ BENCH = Path(__file__).resolve().parent
 sys.path.insert(0, str(BENCH))
 from common import RESULTS, TARGETS  # noqa: E402
 
-TOOLS = ["site-mapper", "crawlee", "crawl4ai", "scrapy", "katana", "firecrawl"]
+TOOLS = ["crawlhound", "crawlee", "crawl4ai", "scrapy", "katana", "firecrawl"]
 
 
 def norm(v):
