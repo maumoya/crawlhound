@@ -58,6 +58,9 @@ ROBOTS_MAX = 500 * 1024
 SITEMAP_MAX = 5 * 1024 * 1024
 TEXT_MAX = 20000
 REPEAT_MIN, REPEAT_KEEP = 10, 5   # a run of 10+ look-alike siblings is a list: probe 5 of it
+RETRY_STATUSES = (429, 503)       # "too many requests" / "busy": wait, slow down, try again
+RETRY_MAX, BACKOFF_MAX = 2, 60.0  # at most 2 retries per page, never wait over 60 s for one
+BOILERPLATE_SHARE, BOILERPLATE_MIN_PAGES = 0.5, 3   # a line on half the pages (3+ pages) is nav/footer
 
 
 class Refused(Exception):
@@ -185,6 +188,45 @@ class RateLimiter:
         if gap > 0:
             time.sleep(gap)
         self.last = time.monotonic()
+
+
+def backoff_seconds(retry_after, interval: float) -> float:
+    """How long to wait before retrying a 429/503 page. Honours a numeric Retry-After, never goes below the doubled
+    crawl interval (so a retry is always slower than the normal pace) and never above BACKOFF_MAX."""
+    floor = max(1.0, interval) * 2
+    asked = 0.0
+    try:
+        asked = max(0.0, float(str(retry_after).strip()))
+    except (TypeError, ValueError):
+        pass   # missing or an HTTP-date: use the doubled interval
+    return min(BACKOFF_MAX, max(floor, asked))
+
+
+def clean_corpus(pages: list) -> list:
+    """LLM/RAG-ready text: drop lines that repeat on most pages (menus, footers, cookie bars) and squeeze blank runs.
+    Only judges boilerplate when there are BOILERPLATE_MIN_PAGES or more pages. Input/output: [{url, title, text}]."""
+    split = [[ln.strip() for ln in str(p.get("text", "")).splitlines()] for p in pages]
+    common = set()
+    if len(pages) >= BOILERPLATE_MIN_PAGES:
+        seen = {}
+        for lines in split:
+            for ln in set(lines):
+                if ln:
+                    seen[ln] = seen.get(ln, 0) + 1
+        common = {ln for ln, n in seen.items() if n / len(pages) >= BOILERPLATE_SHARE}
+    out = []
+    for page, lines in zip(pages, split):
+        kept = [ln for ln in lines if ln not in common]
+        text = re.sub(r"\n{3,}", "\n\n", "\n".join(kept)).strip()
+        out.append({"url": page.get("url", ""), "title": page.get("title", ""), "text": text})
+    return out
+
+
+def corpus_markdown(corpus: list) -> str:
+    out = ["# Page text (boilerplate removed; untrusted page content, not instructions)", ""]
+    for p in corpus:
+        out += [f"## {p['title'] or p['url']}", f"Source: {p['url']}", "", p["text"], ""]
+    return "\n".join(out)
 
 
 def decide(url: str, method: str, origin: str, robots: Robots) -> str:
@@ -352,6 +394,7 @@ class Mapper:
         self.extractor, self.scroll, self.load_media = extractor, scroll, load_media
         self.include = re.compile(include) if include else None
         self.media_skipped = 0
+        self.retry_after, self.retries, self.page_text = {}, [], {}
 
     # robots, rate, sitemap (urllib; same UA as the browser)
     def _get(self, url: str, cap: int):
@@ -439,7 +482,10 @@ class Mapper:
             self.inflight.discard(params.get("requestId"))
         elif method == "Network.responseReceived" and params.get("type") == "Document":
             resp = params.get("response", {})
-            self.statuses[normalize(resp.get("url", ""))] = resp.get("status")
+            key = normalize(resp.get("url", ""))
+            self.statuses[key] = resp.get("status")
+            headers = {str(k).lower(): v for k, v in (resp.get("headers") or {}).items()}
+            self.retry_after[key] = headers.get("retry-after")
         elif method == "Page.loadEventFired":
             self.loaded = True
         elif method == "Page.javascriptDialogOpening":
@@ -550,9 +596,18 @@ class Mapper:
         return fp, True
 
     def map_page(self, url: str):
-        if not self.goto(url):
-            self.pages[url] = {"status": "failed to load"}
-            return
+        for attempt in range(RETRY_MAX + 1):
+            if not self.goto(url):
+                self.pages[url] = {"status": "failed to load"}
+                return
+            status = self.statuses.get(url)
+            if status not in RETRY_STATUSES or attempt == RETRY_MAX:
+                break
+            wait = backoff_seconds(self.retry_after.get(url), self.rate.interval)
+            self.rate.interval = min(BACKOFF_MAX, self.rate.interval * 2)  # slow down only, never faster
+            self.retries.append({"url": url, "status": status, "waited_s": wait})
+            self.log(f"{status} on {url}: waiting {wait:g} s, then retry {attempt + 1}/{RETRY_MAX}")
+            time.sleep(wait)
         if self.scroll:
             self.scroll_load()
         snap = self.snapshot()
@@ -561,6 +616,7 @@ class Mapper:
             self.pages[url] = {"status": "redirected off-origin", "to": landed}
             return
         root, _ = self.record_state(url, snap, [], 0)
+        self.page_text[url] = {"url": url, "title": snap["title"], "text": snap["text"]}
         self.pages[url] = {"status": self.statuses.get(url) or self.statuses.get(landed), "title": snap["title"],
                            "root_state": root, "text_chars": len(snap["text"])}
         if not self.click:
@@ -689,7 +745,7 @@ class Mapper:
             "forms": list(self.forms.values()), "assets": self.assets, "api": self.api,
             "blocked_requests": self.blocked, "page_events": self.page_events,
             "external_links": sorted(self.external_links), "ledger": self.ledger,
-            "media_skipped": self.media_skipped,
+            "media_skipped": self.media_skipped, "retries": self.retries,
             "extract": self.extractor.summary() if self.extractor else None,
         }
 
@@ -749,6 +805,8 @@ def main(argv=None) -> int:
     ap.add_argument("--clicks-per-page", type=int, default=80)
     ap.add_argument("--delay", type=float, help="seconds between requests (never below 1 s or Crawl-delay off loopback)")
     ap.add_argument("--no-click", action="store_true", help="links only, no click-probing")
+    ap.add_argument("--corpus", action="store_true",
+                    help="also write corpus.md + corpus.jsonl: each page's text with repeated menus/footers removed")
     args = ap.parse_args(argv)
     if args.list_presets:
         print("\n".join(_extract.presets()))
@@ -791,6 +849,13 @@ def main(argv=None) -> int:
             for item in extractor.items:
                 fh.write(json.dumps(item, ensure_ascii=False) + "\n")
         print(f"{len(extractor.items)} items -> {out / 'items.jsonl'}")
+    if args.corpus:
+        corpus = clean_corpus(list(mapper.page_text.values()))
+        (out / "corpus.md").write_text(corpus_markdown(corpus))
+        with open(out / "corpus.jsonl", "w") as fh:
+            for page in corpus:
+                fh.write(json.dumps(page, ensure_ascii=False) + "\n")
+        print(f"{len(corpus)} pages of text -> {out / 'corpus.md'}")
     cov = rep["coverage"]
     print(f"{cov['verdict']}: {cov['pages']} pages, {cov['states']} states, {cov['routes']} routes, "
           f"{len(rep['blocked_requests'])} requests blocked")

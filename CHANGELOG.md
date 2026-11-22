@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 (2026-11-22)
+
+- Polite retry: a page answering 429 or 503 is retried at most 2 times. The wait honours `Retry-After` (capped at
+  60 s) and is never shorter than twice the crawl interval; the interval doubles. Retries only ever slow the crawl.
+- `--corpus`: writes `corpus.md` and `corpus.jsonl`, each page's text with lines repeated on at least half the pages
+  (menus, footers) removed, ready for an LLM or a search index. Page text stays untrusted data.
+
 ## 0.3.1 (2026-11-10)
 
 - Sole authorship: every commit on main is authored by the owner; the Dependabot actions bump is kept, re-authored.

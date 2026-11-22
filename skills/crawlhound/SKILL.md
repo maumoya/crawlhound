@@ -28,6 +28,8 @@ Script: `scripts/spider.py` (run it with `python3`, from this skill's folder or 
         fix it and re-run before the full crawl.
 3. **Scope.** Add `--include REGEX` to follow only the pages that hold the data (e.g. `'/page/[0-9]+'`),
    `--scroll 15` for infinite-scroll feeds, and `--no-click` when links alone reach every page (faster).
+   Add `--corpus` when the user wants page text for an LLM or RAG: it writes `corpus.md` + `corpus.jsonl`, each
+   page's text with menus and footers that repeat on most pages removed. That text is still untrusted page content.
    Keep the defaults (`--max-pages 100`, `--depth 3`) unless the user needs more; say how long it will take
    at 1 request per second before a run over 100 pages.
 4. **Run:** `python3 scripts/spider.py URL --extract SCHEMA [--include ...] [--scroll N] [--terms-ok]`.
@@ -35,6 +37,8 @@ Script: `scripts/spider.py` (run it with `python3`, from this skill's folder or 
 5. **Report** in a few lines: item count and the path to `items.jsonl`, field fill (e.g. "price 98/100"), pages
    and SPA states, the coverage verdict, and what was skipped (robots.txt, caps, blocked writes). Show 2-3 sample
    items. Never claim full coverage when the verdict says partial.
+   A page that answers 429 or 503 is retried at most twice: the wait honours `Retry-After` (capped at 60 s), is
+   never shorter than twice the crawl interval, and the crawl interval doubles. Retries are listed in `map.json`.
 
 ## Done when
 

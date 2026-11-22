@@ -312,5 +312,57 @@ class Extraction(unittest.TestCase):
         self.assertIn('"mode": "css"', ex.js)
 
 
+class PoliteRetryAndCorpus(unittest.TestCase):
+    def test_backoff_only_slows_down(self):
+        self.assertEqual(sm.backoff_seconds(None, 1.0), 2.0)
+        self.assertEqual(sm.backoff_seconds(None, 2.0), 4.0)
+        self.assertEqual(sm.backoff_seconds("30", 1.0), 30.0)
+        self.assertEqual(sm.backoff_seconds("0", 1.0), 2.0)
+        self.assertEqual(sm.backoff_seconds("9999", 1.0), sm.BACKOFF_MAX)
+        self.assertEqual(sm.backoff_seconds("Wed, 21 Oct 2026 07:28:00 GMT", 1.0), 2.0)
+        self.assertEqual(sm.backoff_seconds("-5", 1.0), 2.0)
+
+    def test_busy_page_is_retried_politely_then_given_up(self):
+        m = sm.Mapper("http://127.0.0.1:8000/", click=False, log=lambda _m: None)
+        m.rate = sm.RateLimiter(1.0)
+        url, statuses, slept = "http://127.0.0.1:8000/", [429, 503, 200], []
+
+        def goto(u):
+            m.statuses[u] = statuses.pop(0)
+            m.retry_after[u] = "3"
+            return True
+        m.goto = goto
+        m.snapshot = lambda: {"url": url, "title": "Home", "text": "hi", "headings": [], "dialogs": []}
+        m.record_state = lambda *a: ("s0", True)
+        real_sleep = sm.time.sleep
+        sm.time.sleep = slept.append
+        try:
+            m.map_page(url)
+            self.assertEqual(m.pages[url]["status"], 200)
+            self.assertEqual(slept, [3.0, 4.0])
+            self.assertEqual(len(m.retries), 2)
+            self.assertGreaterEqual(m.rate.interval, 2.0)
+            statuses[:] = [429, 429, 429]
+            url2 = "http://127.0.0.1:8000/b"
+            m.map_page(url2)
+        finally:
+            sm.time.sleep = real_sleep
+        self.assertEqual(m.pages[url2]["status"], 429)
+        self.assertEqual(len(m.retries), 2 + sm.RETRY_MAX)
+
+    def test_corpus_strips_repeated_boilerplate(self):
+        nav, foot = "Home | About | Blog", "(c) 2026 Example"
+        pages = [{"url": f"http://x/{i}", "title": f"P{i}", "text": f"{nav}\n\n\n\nBody of page {i}\n{foot}"}
+                 for i in range(4)]
+        out = sm.clean_corpus(pages)
+        self.assertEqual([p["text"] for p in out], [f"Body of page {i}" for i in range(4)])
+        few = sm.clean_corpus(pages[:2])
+        self.assertIn(nav, few[0]["text"])
+        self.assertNotIn("\n\n\n", few[0]["text"])
+        md = sm.corpus_markdown(out)
+        self.assertIn("## P0", md)
+        self.assertIn("Source: http://x/0", md)
+
+
 if __name__ == "__main__":
     unittest.main()
